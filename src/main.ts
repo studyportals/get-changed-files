@@ -88,7 +88,8 @@ async function run(): Promise<void> {
       modifiedFormatted: string,
       removedFormatted: string,
       renamedFormatted: string,
-      addedModifiedFormatted: string
+      addedModifiedFormatted: string,
+      addedModifiedRenamedFormatted: string
     switch (format) {
       case 'space-delimited':
         // If any of the filenames have a space in them, then fail the step.
@@ -104,6 +105,7 @@ async function run(): Promise<void> {
         removedFormatted = removed.join(' ')
         renamedFormatted = renamed.join(' ')
         addedModifiedFormatted = addedModified.join(' ')
+        addedModifiedRenamedFormatted = [...addedModified, ...renamed].join(' ')
         break
       case 'csv':
         allFormatted = all.join(',')
@@ -112,6 +114,7 @@ async function run(): Promise<void> {
         removedFormatted = removed.join(',')
         renamedFormatted = renamed.join(',')
         addedModifiedFormatted = addedModified.join(',')
+        addedModifiedRenamedFormatted = [...addedModified, ...renamed].join(',')
         break
       case 'json':
         allFormatted = JSON.stringify(all)
@@ -120,6 +123,7 @@ async function run(): Promise<void> {
         removedFormatted = JSON.stringify(removed)
         renamedFormatted = JSON.stringify(renamed)
         addedModifiedFormatted = JSON.stringify(addedModified)
+        addedModifiedRenamedFormatted = JSON.stringify([...addedModified, ...renamed])
         break
     }
 
@@ -130,6 +134,7 @@ async function run(): Promise<void> {
     core.info(`Removed: ${removedFormatted}`)
     core.info(`Renamed: ${renamedFormatted}`)
     core.info(`Added or modified: ${addedModifiedFormatted}`)
+    core.info(`Added or modified or renamed: ${addedModifiedRenamedFormatted}`)
 
     // Set step output context.
     core.setOutput('all', allFormatted)
@@ -138,6 +143,7 @@ async function run(): Promise<void> {
     core.setOutput('removed', removedFormatted)
     core.setOutput('renamed', renamedFormatted)
     core.setOutput('added_modified', addedModifiedFormatted)
+    core.setOutput('added_modified_renamed', addedModifiedRenamedFormatted)
 
     // For backwards-compatibility
     core.setOutput('deleted', removedFormatted)
