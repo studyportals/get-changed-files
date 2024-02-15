@@ -5,7 +5,7 @@ branding:
   icon: file
   color: purple
 runs:
-  using: node12
+  using: node16
   main: dist/index.js
 inputs:
   token:
@@ -20,6 +20,10 @@ inputs:
       Can be 'space-delimited', 'csv', or 'json'.
     required: true
     default: space-delimited
+  extensions:
+    description: >
+      List of space-delimited file extensions to include.
+    required: false
 outputs:
   all:
     description: >
@@ -39,6 +43,9 @@ outputs:
   added_modified:
     description: >
       Array of all added and modified files.
+  added_modified_renamed:
+    description: >
+      Array of all added, modified and renamed files.
   # For backwards-compatibility
   deleted:
     description: >

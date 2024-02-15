@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://github.com/jitterbit/get-changed-files/actions"><img alt="jitterbit/get-changed-files status" src="https://github.com/jitterbit/get-changed-files/workflows/Test/badge.svg"></a>
+  <a href="https://github.com/studyportals/get-changed-files/actions"><img alt="studyportals/get-changed-files status" src="https://github.com/jitterbit/get-changed-files/workflows/Test/badge.svg"></a>
 </p>
 
 # Get All Changed Files
@@ -14,12 +14,15 @@ The `steps` output context exposes the output names `all`, `added`, `modified`, 
 See [action.yml](action.yml)
 
 ```yaml
-- uses: jitterbit/get-changed-files@v1
+- uses: studyportals/get-changed-files@v1
   with:
     # Format of the steps output context.
     # Can be 'space-delimited', 'csv', or 'json'.
     # Default: 'space-delimited'
-    format: ''
+    format: 'space-delimited'
+    # List of space-delimited extensions to include.
+    # If not specified, all extensions are included.
+    extensions: '.php .js'
 ```
 
 # Scenarios
@@ -35,7 +38,7 @@ Consider using one of the other formats if that's the case.
 
 ```yaml
 - id: files
-  uses: jitterbit/get-changed-files@v1
+  uses: studyportals/get-changed-files@v1
 - run: |
     for changed_file in ${{ steps.files.outputs.all }}; do
       echo "Do something with this ${changed_file}."
@@ -46,7 +49,7 @@ Consider using one of the other formats if that's the case.
 
 ```yaml
 - id: files
-  uses: jitterbit/get-changed-files@v1
+  uses: studyportals/get-changed-files@v1
   with:
     format: 'csv'
 - run: |
@@ -60,7 +63,7 @@ Consider using one of the other formats if that's the case.
 
 ```yaml
 - id: files
-  uses: jitterbit/get-changed-files@v1
+  uses: studyportals/get-changed-files@v1
   with:
     format: 'json'
 - run: |
